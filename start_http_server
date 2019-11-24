@@ -1,0 +1,27 @@
+#!/bin/bash
+
+trap : SIGTERM SIGINT
+
+nodejs websocket-relay.js appletreelamp &
+
+python3 -m http.server &
+
+ffmpeg \
+	-f v4l2 \
+		-framerate 60 -video_size 640x480 -i /dev/video0 \
+	-f alsa \
+		-ar 44100 -i hw:1 \
+	-f mpegts \
+		-codec:v mpeg1video -s 640x480 -b:v 1000k -bf 0 \
+		-codec:a mp2 -b:a 128k \
+		-muxdelay 0.001 \
+	http://localhost:8081/appletreelamp
+
+wait $!
+
+if [[ $? -gt 128 ]]
+then
+  echo "Killing websocket-relay, http server, and ffmpeg stream"
+  kill -- -$$
+fi
+
