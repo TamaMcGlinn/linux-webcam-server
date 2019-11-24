@@ -1,3 +1,27 @@
+# Easy linux remote webcam
+
+This is a slight adaptation from [jsmpeg](https://github.com/phoboslab/jsmpeg), just adding an install and run script to make it easier to turn your laptop into a streaming webserver that can be viewed at [ip-address-of-laptop]:8000/view-stream.html from within the local LAN by default. If you setup port forwarding for that port, you can view it from outside the LAN.
+
+# Install
+
+```
+git clone git@github.com:TamaHobbit/linux-webcam-server
+cd linux-webcam-server
+./install_camserver
+```
+
+# Run
+
+```
+./start_http_server
+```
+
+To shutdown, use Cntrl-C.
+
+# The original project's README follows with all the details:
+
+--------------------------------------------
+
 # JSMpeg – MPEG1 Video & MP2 Audio Decoder in JavaScript
 
 JSMpeg is a Video Player written in JavaScript. It consists of an MPEG-TS demuxer, MPEG1 video & MP2 audio decoders, WebGL & Canvas2D renderers and WebAudio sound output. JSMpeg can load static videos via Ajax and allows low latency streaming (~50ms) via WebSockets.
